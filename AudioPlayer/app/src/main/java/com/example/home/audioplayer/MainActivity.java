@@ -52,17 +52,18 @@ public class MainActivity extends AppCompatActivity {
                 mediaPlayer.stop();
 
                 break;
-            case STATE_PAUSED:
-                mediaPlayer.pause();
-                bPlayPause.setImageResource(android.R.drawable.ic_media_pause);
-                tView.setText("Продолжим?");
-                state = STATE_PLAYED;
-
-                break;
             case STATE_PLAYED:
                 mediaPlayer.pause();
                 bPlayPause.setImageResource(android.R.drawable.ic_media_play);
                 state = STATE_PAUSED;
+                tView.setText("Пауза");
+                break;
+            case STATE_PAUSED:
+                mediaPlayer.start();
+                bPlayPause.setImageResource(android.R.drawable.ic_media_pause);
+                tView.setText("Продолжаем");
+                state = STATE_PLAYED;
+
                 break;
         }
     }
