@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         bDestroi= (ImageButton)findViewById(R.id.bDestroi);
         tView = (TextView) findViewById(R.id.tView);
         state = STATE_STOPED;
+        mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.muzmoru);
 
     }
 
