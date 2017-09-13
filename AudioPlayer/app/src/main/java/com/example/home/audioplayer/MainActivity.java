@@ -8,9 +8,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private ImageButton bDestroi, bPlayPause;
+    private ImageButton bDestroi, bPlayPause,bStop;
     private MediaPlayer mediaPlayer;
     private TextView tView;
     private int state;
@@ -26,44 +26,53 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         bPlayPause = (ImageButton) findViewById(R.id.bPlayPause);
+        bStop = (ImageButton)findViewById(R.id.bStop);
         bDestroi= (ImageButton)findViewById(R.id.bDestroi);
+        bDestroi.setBackgroundResource(R.drawable.layerdrawable);
         tView = (TextView) findViewById(R.id.tView);
         state = STATE_STOPED;
         mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.muzmoru);
 
+        bPlayPause.setOnClickListener(this);
+
     }
 
-    public void onClick(View view) {
-        switch (view.getId()){
+    public void onClick(View v) {
+        switch (v.getId()){
             case R.id.bDestroi:
                 Toast.makeText(this, "Мы над этим ещё работаем", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.bPlayPause:
-                preperePlayerState();
+                preparePlayerState();
                 break;
+            case R.id.bStop:
+                mediaPlayer.stop();
+                bPlayPause.setImageResource(android.R.drawable.ic_media_play);
+                tView.setText("Стоп");
+                state = STATE_STOPED;
             default:
                 Toast.makeText(this, "Мы над жтим ещё работаем", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void preperePlayerState() {
+    private void preparePlayerState() {
         switch (state){
             case STATE_STOPED:
-                mediaPlayer.stop();
-
+                mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.muzmoru);
+                mediaPlayer.start();
+                bPlayPause.setImageResource(android.R.drawable.ic_media_pause);
                 break;
             case STATE_PLAYED:
                 mediaPlayer.pause();
                 bPlayPause.setImageResource(android.R.drawable.ic_media_play);
+                tView.setText("Pause");
                 state = STATE_PAUSED;
-                tView.setText("Пауза");
                 break;
             case STATE_PAUSED:
                 mediaPlayer.start();
                 bPlayPause.setImageResource(android.R.drawable.ic_media_pause);
-                tView.setText("Продолжаем");
+                tView.setText("Continue");
                 state = STATE_PLAYED;
-
                 break;
         }
     }
