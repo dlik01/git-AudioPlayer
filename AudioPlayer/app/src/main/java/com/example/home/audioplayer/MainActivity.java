@@ -3,13 +3,15 @@ package com.example.home.audioplayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.media.MediaPlayer;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.app.Activity;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
     private final int STATE_STOPED = 0;
     private final int STATE_PLAYED = 1;
     private final int STATE_PAUSED = 2;
@@ -18,7 +20,16 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton bPlayePause, idDestroi;
     private MediaPlayer mediaPlayer;
     private TextView text;
+    private SeekBar seekBar;
 
+
+    //меню
+
+    //public boolean onCreateOptionsMenu(Menu menu){
+    //    MenuInflater menuInflater = getMenuInflater();
+
+    //    return  super.onCreateOptionsMenu(menu);
+    //}
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,11 +37,31 @@ public class MainActivity extends AppCompatActivity {
 
         bPlayePause = (ImageButton) findViewById(R.id.bPlayPause);
         idDestroi = (ImageButton) findViewById(R.id.idDestroi);
-        idDestroi.setBackgroundResource(R.drawable.layerdrawable);
+        bPlayePause.setBackgroundResource(R.drawable.layerdrawable);
         text = (TextView) findViewById(R.id.text);
         mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.muzmoru);
         state = STATE_STOPED;
+        initViews();
 
+    }
+
+    private void initViews() {
+        seekBar = (SeekBar) findViewById(R.id.seekBar);
+        seekBar.setMax(mediaPlayer.getDuration());
+        seekBar.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                seekChange(v);
+                return false;
+            }
+        });
+    }
+
+    private void seekChange(View v) {
+        if (mediaPlayer.isPlaying()){
+            SeekBar sb = (SeekBar)v;
+            mediaPlayer.seekTo(sb.getProgress());
+        }
     }
 
     public void onClick(View view) {
@@ -69,5 +100,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
+
+
 }
 
