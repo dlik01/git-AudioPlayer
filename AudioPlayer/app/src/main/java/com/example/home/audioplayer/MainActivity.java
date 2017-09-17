@@ -42,6 +42,7 @@ public class MainActivity extends Activity {
         mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.muzmoru);
         state = STATE_STOPED;
         initViews();
+        ///// тест кода
 
     }
 
