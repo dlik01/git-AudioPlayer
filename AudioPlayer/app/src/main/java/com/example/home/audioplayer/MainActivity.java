@@ -19,8 +19,10 @@ public class MainActivity extends Activity {
     private int state;
     private ImageButton bPlayePause, idDestroi;
     private MediaPlayer mediaPlayer;
-    private TextView text;
+    private TextView text, startTime, endTime;
     private SeekBar seekBar;
+    private  double startDoubleTime = 0;
+    private  double endDobleTime = 0;
 
 
     //меню
@@ -39,9 +41,14 @@ public class MainActivity extends Activity {
         //idDestroi = (ImageButton) findViewById(R.id.idDestroi);
         //bPlayePause.setBackgroundResource(R.drawable.layerdrawable);
         text = (TextView) findViewById(R.id.text);
+        endTime= (TextView) findViewById(R.id.endTime);
+        startTime= (TextView) findViewById(R.id.startTime);
         mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.muzmoru);
         state = STATE_STOPED;
         initViews();
+        //startDoubleTime = mediaPlayer.getCurrentPosition();
+        //endDobleTime = mediaPlayer.getDuration();
+        //startTime.setText((int)startDoubleTime);
         ///// тест кода
 
     }
