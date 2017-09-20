@@ -36,8 +36,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         bPlayePause = (ImageButton) findViewById(R.id.bPlayPause);
-        idDestroi = (ImageButton) findViewById(R.id.idDestroi);
-        bPlayePause.setBackgroundResource(R.drawable.layerdrawable);
+        //idDestroi = (ImageButton) findViewById(R.id.idDestroi);
+        //bPlayePause.setBackgroundResource(R.drawable.layerdrawable);
         text = (TextView) findViewById(R.id.text);
         mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.muzmoru);
         state = STATE_STOPED;
