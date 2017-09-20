@@ -42,7 +42,8 @@
             android:id="@+id/startTime"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:text="Начало" />
 
         <SeekBar
             android:id="@+id/seekBar"
@@ -64,13 +65,6 @@
         android:layout_weight="1"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/bPlay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Играть" />
-
         <ImageButton
             android:id="@+id/imageButton2"
             android:layout_width="wrap_content"
@@ -84,6 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:onClick="onClick"
             android:src="@drawable/stop" />
 
         <ImageButton
@@ -91,6 +86,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:onClick="onClick"
             app:srcCompat="@android:drawable/ic_media_play" />
 
         <ImageButton
