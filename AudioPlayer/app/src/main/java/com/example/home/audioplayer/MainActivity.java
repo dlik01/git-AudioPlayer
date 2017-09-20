@@ -40,7 +40,7 @@ public class MainActivity extends Activity {
         b4=(Button)findViewById(R.id.button4);
         //iv=(ImageView)findViewById(R.id.imageView);
 
-        tx1=(TextView)findViewById(R.id.startTime);
+        tx1=(TextView)findViewById(R.id.tvStart);
         tx2=(TextView)findViewById(R.id.tvEnd);
         tx3=(TextView)findViewById(R.id.tvOptions);
         tx3.setText("muzmoru.mp3");
