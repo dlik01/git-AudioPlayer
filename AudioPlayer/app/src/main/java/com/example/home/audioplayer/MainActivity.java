@@ -1,22 +1,15 @@
 package com.example.home.audioplayer;
 
 import android.app.Activity;
-import android.app.Activity;
 
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
 
 import android.os.Bundle;
 import android.os.Handler;
 
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,10 +40,10 @@ public class MainActivity extends Activity {
         b4=(Button)findViewById(R.id.button4);
         //iv=(ImageView)findViewById(R.id.imageView);
 
-        tx1=(TextView)findViewById(R.id.textView2);
-        tx2=(TextView)findViewById(R.id.textView3);
-        tx3=(TextView)findViewById(R.id.textView4);
-        tx3.setText("Song.mp3");
+        tx1=(TextView)findViewById(R.id.startTime);
+        tx2=(TextView)findViewById(R.id.tvEnd);
+        tx3=(TextView)findViewById(R.id.tvOptions);
+        tx3.setText("muzmoru.mp3");
 
         mediaPlayer = MediaPlayer.create(this, R.raw.muzmoru);
         seekbar=(SeekBar)findViewById(R.id.seekBar);
