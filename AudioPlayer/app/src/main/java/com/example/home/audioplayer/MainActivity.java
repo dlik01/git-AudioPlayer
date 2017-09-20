@@ -7,6 +7,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 
+import android.view.MotionEvent;
 import android.view.View;
 
 import android.widget.Button;
@@ -48,6 +49,7 @@ public class MainActivity extends Activity {
         mediaPlayer = MediaPlayer.create(this, R.raw.muzmoru);
         seekbar=(SeekBar)findViewById(R.id.seekBar);
         //seekbar.setClickable(false);
+        initViews();
         b2.setEnabled(false);
 
         b3.setOnClickListener(new View.OnClickListener() {
@@ -136,9 +138,32 @@ public class MainActivity extends Activity {
                                     toMinutes((long) startTime)))
             );
             seekbar.setProgress((int)startTime);
-            myHandler.postDelayed(this, 100);
+            myHandler.postDelayed(this, 300);
         }
     };
+
+
+
+    private void initViews() {
+        seekbar = (SeekBar) findViewById(R.id.seekBar);
+        seekbar.setMax(mediaPlayer.getDuration());
+        seekbar.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                seekChange(v);
+                return false;
+            }
+        });
+    }
+
+    private void seekChange(View v) {
+        if (mediaPlayer.isPlaying()){
+            SeekBar sb = (SeekBar)v;
+            mediaPlayer.seekTo(sb.getProgress());
+        }
+    }
+
+
 
     //@Override
     //public boolean onCreateOptionsMenu(Menu menu) {
