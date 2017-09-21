@@ -159,6 +159,7 @@ public class MainActivity extends Activity {
     private void seekChange(View v) {
         if (mediaPlayer.isPlaying()){
             SeekBar sb = (SeekBar)v;
+            sb.setMax(mediaPlayer.getDuration());
             mediaPlayer.seekTo(sb.getProgress());
         }
     }
