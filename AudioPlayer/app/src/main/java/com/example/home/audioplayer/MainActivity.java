@@ -27,7 +27,7 @@ public class MainActivity extends Activity {
     private int forwardTime = 5000;
     private int backwardTime = 5000;
     private SeekBar seekbar;
-    private TextView tx1,tx2,tx3;
+    private TextView tx1,tx2,tx3, tvSeekbar, tvMaxSeekbar, tvStart;
 
     public static int oneTimeOnly = 0;
     @Override
@@ -45,6 +45,9 @@ public class MainActivity extends Activity {
         tx2=(TextView)findViewById(R.id.tvEnd);
         tx3=(TextView)findViewById(R.id.tvOptions);
         tx3.setText("muzmoru.mp3");
+        tvSeekbar = (TextView) findViewById(R.id.tvSeekbar);
+        tvMaxSeekbar = (TextView) findViewById(R.id.tvMaxSeekbar);
+        tvStart = (TextView) findViewById(R.id.tvStart);
 
         mediaPlayer = MediaPlayer.create(this, R.raw.muzmoru);
         seekbar=(SeekBar)findViewById(R.id.seekBar);
@@ -138,6 +141,10 @@ public class MainActivity extends Activity {
                                     toMinutes((long) startTime)))
             );
             seekbar.setProgress((int)startTime);
+            seekbar.setMax(mediaPlayer.getDuration());
+            //tvSeekbar.setText("Т/З Seekbar = " + seekbar.getProgress());
+            //tvMaxSeekbar.setText("М/З SeekBar = " + seekbar.getMax());
+            //tvStart.setText("текущее время песни = " +mediaPlayer.getCurrentPosition());
             myHandler.postDelayed(this, 300);
         }
     };
@@ -146,7 +153,7 @@ public class MainActivity extends Activity {
 
     private void initViews() {
         seekbar = (SeekBar) findViewById(R.id.seekBar);
-        seekbar.setMax(mediaPlayer.getDuration());
+        //tvSeekbar.setText("значение Seekbar = " + seekbar.getProgress());
         seekbar.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -159,7 +166,7 @@ public class MainActivity extends Activity {
     private void seekChange(View v) {
         if (mediaPlayer.isPlaying()){
             SeekBar sb = (SeekBar)v;
-            sb.setMax(mediaPlayer.getDuration());
+
             mediaPlayer.seekTo(sb.getProgress());
         }
     }
