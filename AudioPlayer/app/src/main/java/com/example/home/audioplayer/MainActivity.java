@@ -2,6 +2,7 @@ package com.example.home.audioplayer;
 
 import android.app.Activity;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 
 import android.os.Bundle;
@@ -18,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 
 
 public class MainActivity extends Activity {
-    private Button b1,b2,b3,b4;
+    private Button b1,b2,b3,b4, btSecondActivity;
     //private ImageView iv;
     private MediaPlayer mediaPlayer;
     private double startTime = 0;
@@ -37,8 +38,9 @@ public class MainActivity extends Activity {
 
         b1 = (Button) findViewById(R.id.button);
         b2 = (Button) findViewById(R.id.button2);
-        b3=(Button)findViewById(R.id.button3);
-        b4=(Button)findViewById(R.id.button4);
+        b3 =(Button)findViewById(R.id.button3);
+        b4 =(Button)findViewById(R.id.button4);
+        btSecondActivity =(Button)findViewById(R.id.btSecondActivity);
         //iv=(ImageView)findViewById(R.id.imageView);
 
         tx1=(TextView)findViewById(R.id.tvStart);
@@ -53,6 +55,16 @@ public class MainActivity extends Activity {
         seekbar=(SeekBar)findViewById(R.id.seekBar);
         //seekbar.setClickable(false);
         initViews();
+
+
+        btSecondActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(getApplicationContext(), SecondActivity.class);
+                startActivity(intent);
+            }
+        });
         b2.setEnabled(false);
 
         b3.setOnClickListener(new View.OnClickListener() {
