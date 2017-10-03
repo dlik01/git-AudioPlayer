@@ -1,9 +1,28 @@
 package com.example.home.audioplayer;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ListActivity;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import android.content.ContentResolver;
+import android.database.Cursor;
+import android.net.Uri;
+import android.widget.TextView;
+
+import java.io.File;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * Created by home on 25.09.2017.
@@ -17,54 +36,55 @@ public class SecondActivity extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        //СѓСЃС‚Р°РЅРѕРІРёС‚СЊ РѕСЃРЅРѕРІРЅСѓСЋ РєРѕРјРїРѕРЅРѕРІРєСѓ
         setContentView(R.layout.second_activity);
-        //перейдите в корневой каталог
+        //РїРµСЂРµР№РґРёС‚Рµ РІ РєРѕСЂРЅРµРІРѕР№ РєР°С‚Р°Р»РѕРі
         browseTo(new File("/sdcard/Music"));
     }
 
-    //перейдите в родительский каталог
+    //РїРµСЂРµР№РґРёС‚Рµ РІ СЂРѕРґРёС‚РµР»СЊСЃРєРёР№ РєР°С‚Р°Р»РѕРі
     private void upOneLevel(){
         if(this.currentDirectory.getParent() != null) {
             this.browseTo(this.currentDirectory.getParentFile());
         }
     }
 
-    //просматривать файл или каталог
+    //РїСЂРѕСЃРјР°С‚СЂРёРІР°С‚СЊ С„Р°Р№Р» РёР»Рё РєР°С‚Р°Р»РѕРі
     private void browseTo(final File aDirectory){
-        //если мы хотим просмотреть каталог
+        //РµСЃР»Рё РјС‹ С…РѕС‚РёРј РїСЂРѕСЃРјРѕС‚СЂРµС‚СЊ РєР°С‚Р°Р»РѕРі
         if (aDirectory.isDirectory()){
-            //заполнить список файлами из этого каталога
+            //Р·Р°РїРѕР»РЅРёС‚СЊ СЃРїРёСЃРѕРє С„Р°Р№Р»Р°РјРё РёР· СЌС‚РѕРіРѕ РєР°С‚Р°Р»РѕРіР°
             this.currentDirectory = aDirectory;
             fill(aDirectory.listFiles());
         }
     }
-    //список заполнения
+    //СЃРїРёСЃРѕРє Р·Р°РїРѕР»РЅРµРЅРёСЏ
     private void fill(File[] files) {
-        //Очистить список
+        //РћС‡РёСЃС‚РёС‚СЊ СЃРїРёСЃРѕРє
         this.directoryEntries.clear();
-        //добавить все файлы в список
+        //РґРѕР±Р°РІРёС‚СЊ РІСЃРµ С„Р°Р№Р»С‹ РІ СЃРїРёСЃРѕРє
         for (File file : files) {
             this.directoryEntries.add(file.getAbsolutePath());
         }
-        //создать адаптер массива, чтобы показать все
+        //СЃРѕР·РґР°С‚СЊ Р°РґР°РїС‚РµСЂ РјР°СЃСЃРёРІР°, С‡С‚РѕР±С‹ РїРѕРєР°Р·Р°С‚СЊ РІСЃРµ
         ArrayAdapter<String> directoryList = new ArrayAdapter<String>(this, R.layout.row, this.directoryEntries);
         this.setListAdapter(directoryList);
     }
-    //когда вы нажали на элемент
+    //РєРѕРіРґР° РІС‹ РЅР°Р¶Р°Р»Рё РЅР° СЌР»РµРјРµРЅС‚
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
-        //получить выбранное имя файла
+        //РїРѕР»СѓС‡РёС‚СЊ РІС‹Р±СЂР°РЅРЅРѕРµ РёРјСЏ С„Р°Р№Р»Р°
 
         int selectionRowID = position;
         String selectedFileString = this.directoryEntries.get(selectionRowID);
 
-        //если мы выберем «..», то вернитесь вверх
+        //РµСЃР»Рё РјС‹ РІС‹Р±РµСЂРµРј В«..В», С‚Рѕ РІРµСЂРЅРёС‚РµСЃСЊ РІРІРµСЂС…
 
         if(selectedFileString.equals("..")){
             this.upOneLevel();
         } else {
-            //перейдите к кликному файлу или каталогу, используя browseTo ()
+            //РїРµСЂРµР№РґРёС‚Рµ Рє РєР»РёРєРЅРѕРјСѓ С„Р°Р№Р»Сѓ РёР»Рё РєР°С‚Р°Р»РѕРіСѓ, РёСЃРїРѕР»СЊР·СѓСЏ browseTo ()
             File clickedFile = null;
             clickedFile = new File(selectedFileString);
             if (clickedFile != null)
