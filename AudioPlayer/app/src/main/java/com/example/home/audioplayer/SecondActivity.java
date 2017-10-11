@@ -32,6 +32,7 @@ public class SecondActivity extends ListActivity {
 
     private List<String> directoryEntries = new ArrayList<String>();
     private File currentDirectory = new File("/");
+    private TextView titleManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -78,17 +79,19 @@ public class SecondActivity extends ListActivity {
 
         int selectionRowID = position;
         String selectedFileString = this.directoryEntries.get(selectionRowID);
+        //String nameFile = ;
+        titleManager.setText(selectedFileString);
 
         //если мы выберем «..», то вернитесь вверх
 
-        if(selectedFileString.equals("..")){
-            this.upOneLevel();
-        } else {
+     //   if(selectedFileString.equals("..")){
+     //       this.upOneLevel();
+     //   } else {
             //перейдите к кликному файлу или каталогу, используя browseTo ()
-            File clickedFile = null;
-            clickedFile = new File(selectedFileString);
-            if (clickedFile != null)
-                this.browseTo(clickedFile);
-        }
+      //      File clickedFile = null;
+      //      clickedFile = new File(selectedFileString);
+     //       if (clickedFile != null)
+     //           this.browseTo(clickedFile);
+     //   }
     }
 }
