@@ -1,46 +1,32 @@
 package com.example.home.audioplayer;
 
-import android.app.Activity;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.DialogInterface.OnClickListener;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
-import android.content.ContentResolver;
-import android.database.Cursor;
-import android.net.Uri;
 import android.widget.TextView;
-
-import java.io.File;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
-/**
- * Created by home on 25.09.2017.
- */
-
 public class SecondActivity extends ListActivity {
-
     private List<String> directoryEntries = new ArrayList<String>();
-    private File currentDirectory = new File("/");
-    private TextView titleManager;
-
+    private File currentDirectory = new File(String.valueOf(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC)));
+    //при запуске приложения
     @Override
-    protected void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
+    public void onCreate(Bundle icicle) {
+        super.onCreate(icicle);
         //установить основную компоновку
         setContentView(R.layout.second_activity);
         //перейдите в корневой каталог
-        browseTo(new File("/sdcard/Music"));
+        browseTo(new File(String.valueOf(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC))));
     }
 
     //перейдите в родительский каталог
@@ -57,41 +43,52 @@ public class SecondActivity extends ListActivity {
             //заполнить список файлами из этого каталога
             this.currentDirectory = aDirectory;
             fill(aDirectory.listFiles());
+
+            //set titleManager text
+            TextView titleManager = (TextView) findViewById(R.id.titleManager);
+            titleManager.setText(aDirectory.getAbsolutePath());
+
         }
     }
     //список заполнения
     private void fill(File[] files) {
         //Очистить список
+
         this.directoryEntries.clear();
+
+        //if (this.currentDirectory.getParent() != null)
+        //    this.directoryEntries.add("..");
+
         //добавить все файлы в список
+
         for (File file : files) {
-            this.directoryEntries.add(file.getAbsolutePath());
+            this.directoryEntries.add(file.getName());
         }
+
         //создать адаптер массива, чтобы показать все
+
         ArrayAdapter<String> directoryList = new ArrayAdapter<String>(this, R.layout.row, this.directoryEntries);
         this.setListAdapter(directoryList);
     }
     //когда вы нажали на элемент
 
-    @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
+    //@Override
+    //protected void onListItemClick(ListView l, View v, int position, long id) {
         //получить выбранное имя файла
 
-        int selectionRowID = position;
-        String selectedFileString = this.directoryEntries.get(selectionRowID);
-        //String nameFile = ;
-        titleManager.setText(selectedFileString);
+    //    int selectionRowID = position;
+    //    String selectedFileString = this.directoryEntries.get(selectionRowID);
 
         //если мы выберем «..», то вернитесь вверх
 
      //   if(selectedFileString.equals("..")){
-     //       this.upOneLevel();
-     //   } else {
+    //        this.upOneLevel();
+    //    } else {
             //перейдите к кликному файлу или каталогу, используя browseTo ()
-      //      File clickedFile = null;
-      //      clickedFile = new File(selectedFileString);
-     //       if (clickedFile != null)
+    //        File clickedFile = null;
+    //        clickedFile = new File(selectedFileString);
+    //        if (clickedFile != null)
      //           this.browseTo(clickedFile);
-     //   }
-    }
+    //    }
+    //}
 }
