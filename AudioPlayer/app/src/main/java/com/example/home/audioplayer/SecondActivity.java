@@ -16,6 +16,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 public class SecondActivity extends ListActivity {
     private List<String> directoryEntries = new ArrayList<String>();
     private File currentDirectory = new File(String.valueOf(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC)));
@@ -70,12 +72,13 @@ public class SecondActivity extends ListActivity {
         ArrayAdapter<String> directoryList = new ArrayAdapter<String>(this, R.layout.row, this.directoryEntries);
         this.setListAdapter(directoryList);
     }
-    //когда вы нажали на элемент
+    //ОБрабатываем нажатие на список
 
-    //@Override
-    //protected void onListItemClick(ListView l, View v, int position, long id) {
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
         //получить выбранное имя файла
-
+        String text = String.format("Select: %s; pos: %s;  id: %s", directoryEntries.get(position), position, id);
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     //    int selectionRowID = position;
     //    String selectedFileString = this.directoryEntries.get(selectionRowID);
 
@@ -90,5 +93,5 @@ public class SecondActivity extends ListActivity {
     //        if (clickedFile != null)
      //           this.browseTo(clickedFile);
     //    }
-    //}
+    }
 }
