@@ -14,6 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0"
+        android:onClick="onClick"
         android:text="Button" />
 
     <LinearLayout
@@ -22,34 +23,26 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="5"
-            android:gravity="bottom|center_vertical|center"
-            android:text="Тут будет что-то интересное."
-            android:textSize="30sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="5"
-            android:gravity="top|center_vertical|center"
-            android:text="Надеюсь."
-            android:textSize="30sp" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="9"
-            android:orientation="horizontal">
+            android:layout_weight="5"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tvStart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:id="@+id/testView1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
                 android:text="TextView" />
+
+            <TextView
+                android:id="@+id/testView2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:text="TextView" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -59,14 +52,14 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tvSeekbar"
+                android:id="@+id/test1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="TextView" />
 
             <TextView
-                android:id="@+id/tvMaxSeekbar"
+                android:id="@+id/test2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -114,6 +107,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="onClick"
             android:text="Назад" />
 
         <Button
@@ -121,6 +115,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="onClick"
             android:text="Играть" />
 
         <Button
@@ -128,6 +123,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="onClick"
             android:text="Пауза" />
 
         <Button
@@ -135,6 +131,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="onClick"
             android:text="вперед" />
     </LinearLayout>
 
