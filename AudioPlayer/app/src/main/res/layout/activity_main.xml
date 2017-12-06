@@ -30,13 +30,6 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/testView1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="3"
-                android:text="TextView" />
-
-            <TextView
                 android:id="@+id/testView2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
