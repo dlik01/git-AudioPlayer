@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaPlayer;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 
@@ -15,6 +16,9 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 
@@ -28,10 +32,11 @@ public class MainActivity extends Activity {
     private int forwardTime = 5000;
     private int backwardTime = 5000;
     private SeekBar seekbar;
-    private TextView tx1,tx2,tx3, tvStart, test2, test1, testView, testView2;
+    private TextView tx1,tx2,tx3, tvStart, test2, test1, testView2;
     //Задал константы для передачи файлов
     public final static String musicName = "Name";
     public final static String musicAdress = "Adress";
+    public  String musicIdPath;
     public final static int ACTION_EDIT= 101;
 
     public static int oneTimeOnly = 0;
@@ -49,22 +54,33 @@ public class MainActivity extends Activity {
         tx1=(TextView)findViewById(R.id.tvStart);
         tx2=(TextView)findViewById(R.id.tvEnd);
         tx3=(TextView)findViewById(R.id.tvOptions);
-        tx3.setText("muzmoru.mp3");
+
         test1 = (TextView) findViewById(R.id.test1);
         test2 = (TextView) findViewById(R.id.test2);
         tvStart = (TextView) findViewById(R.id.tvStart);
-        testView = (TextView)findViewById(R.id.testView1);
+
         testView2 = (TextView)findViewById(R.id.testView2);
 
-        mediaPlayer = MediaPlayer.create(this, R.raw.muzmoru);
+
         seekbar=(SeekBar)findViewById(R.id.seekBar);
         b2.setEnabled(false);
+
         initViews();
         //получаем данные папки
         Bundle extras = getIntent().getExtras();
-        testView.setText(extras.getString(SecondActivity.NAME));
+        tx3.setText(extras.getString(SecondActivity.NAME));
         testView2.setText(extras.getString(SecondActivity.PATH));
+        musicIdPath = (String) tx3.getText()+ testView2.getText();
+        test1.setText(musicIdPath);
+        tx3.setText(extras.getString(SecondActivity.NAME));
+        mediaPlayer = MediaPlayer.create(MainActivity.this, Uri.parse(musicIdPath));
+        //try {
+        //    mediaPlayer.setDataSource(String.valueOf(extras.getString(SecondActivity.PATH)));
+        //} catch (IOException e) {
+        //    e.printStackTrace();
+        //}
 
+        //mediaPlayer.setOnPreparedListener((MediaPlayer.OnPreparedListener) this);
 
     }
 
@@ -121,7 +137,7 @@ public class MainActivity extends Activity {
                 Intent intent = new Intent();
                 intent.setClass(getApplicationContext(), SecondActivity.class);
                 //добавляем параметры
-                intent.putExtra(musicName, testView.getText());
+                intent.putExtra(musicName, tx3.getText());
                 intent.putExtra(musicAdress, testView2.getText());
                 startActivityForResult(intent, ACTION_EDIT);
                 break;
