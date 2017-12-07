@@ -86,7 +86,7 @@ public class SecondActivity extends ListActivity {
         //получить выбранное имя файла
         String nameMusic = directoryEntries.get(position);
         String adressMusic = currentDirectory.getAbsolutePath();
-        String adressFile = adressMusic + nameMusic;
+        String adressFile = adressMusic + "/" + nameMusic;
         //File adressFile = new File(adressMusic);
         String text = String.format("Select: %s; pos: %s;  id: %s", directoryEntries.get(position), position, id);
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
