@@ -32,7 +32,7 @@ public class MainActivity extends Activity {
     private int forwardTime = 5000;
     private int backwardTime = 5000;
     private SeekBar seekbar;
-    private TextView tx1,tx2,tx3, tvStart, test2, test1, testView2;
+    private TextView tx1,tx2,tvMusicName, tvStart, test2, test1, testView2;
     //Задал константы для передачи файлов
     public final static String musicName = "Name";
     public final static String musicAdress = "Adress";
@@ -53,7 +53,7 @@ public class MainActivity extends Activity {
 
         tx1=(TextView)findViewById(R.id.tvStart);
         tx2=(TextView)findViewById(R.id.tvEnd);
-        tx3=(TextView)findViewById(R.id.tvOptions);
+        tvMusicName=(TextView)findViewById(R.id.tvMusicName);
 
         test1 = (TextView) findViewById(R.id.test1);
         test2 = (TextView) findViewById(R.id.test2);
@@ -68,11 +68,11 @@ public class MainActivity extends Activity {
         initViews();
         //получаем данные папки
         Bundle extras = getIntent().getExtras();
-        tx3.setText(extras.getString(SecondActivity.NAME));
+        tvMusicName.setText(extras.getString(SecondActivity.NAME));
         testView2.setText(extras.getString(SecondActivity.PATH));
-        musicIdPath = (String) tx3.getText()+ testView2.getText();
+        musicIdPath = (String) testView2.getText();
         test1.setText(musicIdPath);
-        tx3.setText(extras.getString(SecondActivity.NAME));
+        tvMusicName.setText(extras.getString(SecondActivity.NAME));
         mediaPlayer = MediaPlayer.create(MainActivity.this, Uri.parse(musicIdPath));
         //try {
         //    mediaPlayer.setDataSource(String.valueOf(extras.getString(SecondActivity.PATH)));
@@ -137,7 +137,7 @@ public class MainActivity extends Activity {
                 Intent intent = new Intent();
                 intent.setClass(getApplicationContext(), SecondActivity.class);
                 //добавляем параметры
-                intent.putExtra(musicName, tx3.getText());
+                intent.putExtra(musicName, tvMusicName.getText());
                 intent.putExtra(musicAdress, testView2.getText());
                 startActivityForResult(intent, ACTION_EDIT);
                 break;
@@ -173,14 +173,12 @@ public class MainActivity extends Activity {
                 tx2.setText(String.format("%d min, %d sec",
                     TimeUnit.MILLISECONDS.toMinutes((long) finalTime),
                     TimeUnit.MILLISECONDS.toSeconds((long) finalTime) -
-                    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) finalTime)))
-                );
+                    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) finalTime))));
 
                 tx1.setText(String.format("%d min, %d sec",
                     TimeUnit.MILLISECONDS.toMinutes((long) startTime),
                     TimeUnit.MILLISECONDS.toSeconds((long) startTime) -
-                    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) startTime)))
-                );
+                    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) startTime))));
 
                 seekbar.setProgress((int)startTime);
                 myHandler.postDelayed(UpdateSongTime,100);
